@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "字符串逆序（递归实现）", "字符串逆序（递归实现）\字符串逆序（递归实现）.vcxproj", "{68519590-C52B-4F08-8C7C-B0B8B6FE775E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68519590-C52B-4F08-8C7C-B0B8B6FE775E}.Debug|x64.ActiveCfg = Debug|x64
+		{68519590-C52B-4F08-8C7C-B0B8B6FE775E}.Debug|x64.Build.0 = Debug|x64
+		{68519590-C52B-4F08-8C7C-B0B8B6FE775E}.Debug|x86.ActiveCfg = Debug|Win32
+		{68519590-C52B-4F08-8C7C-B0B8B6FE775E}.Debug|x86.Build.0 = Debug|Win32
+		{68519590-C52B-4F08-8C7C-B0B8B6FE775E}.Release|x64.ActiveCfg = Release|x64
+		{68519590-C52B-4F08-8C7C-B0B8B6FE775E}.Release|x64.Build.0 = Release|x64
+		{68519590-C52B-4F08-8C7C-B0B8B6FE775E}.Release|x86.ActiveCfg = Release|Win32
+		{68519590-C52B-4F08-8C7C-B0B8B6FE775E}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {41675A5E-30BC-4DF2-A68C-881F4E88A243}
+	EndGlobalSection
+EndGlobal
