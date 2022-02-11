@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "两个int（32位）整数m和n的二进制表达中，有多少个位(bit)不同？", "两个int（32位）整数m和n的二进制表达中，有多少个位(bit)不同？\两个int（32位）整数m和n的二进制表达中，有多少个位(bit)不同？.vcxproj", "{AAC53D22-6CB8-44CD-98FB-DA32429DDBEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AAC53D22-6CB8-44CD-98FB-DA32429DDBEA}.Debug|x64.ActiveCfg = Debug|x64
+		{AAC53D22-6CB8-44CD-98FB-DA32429DDBEA}.Debug|x64.Build.0 = Debug|x64
+		{AAC53D22-6CB8-44CD-98FB-DA32429DDBEA}.Debug|x86.ActiveCfg = Debug|Win32
+		{AAC53D22-6CB8-44CD-98FB-DA32429DDBEA}.Debug|x86.Build.0 = Debug|Win32
+		{AAC53D22-6CB8-44CD-98FB-DA32429DDBEA}.Release|x64.ActiveCfg = Release|x64
+		{AAC53D22-6CB8-44CD-98FB-DA32429DDBEA}.Release|x64.Build.0 = Release|x64
+		{AAC53D22-6CB8-44CD-98FB-DA32429DDBEA}.Release|x86.ActiveCfg = Release|Win32
+		{AAC53D22-6CB8-44CD-98FB-DA32429DDBEA}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8862BAC-0670-4552-8204-867E0828F282}
+	EndGlobalSection
+EndGlobal
