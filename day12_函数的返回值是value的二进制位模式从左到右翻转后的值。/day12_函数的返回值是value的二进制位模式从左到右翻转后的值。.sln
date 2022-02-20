@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "day12_函数的返回值是value的二进制位模式从左到右翻转后的值。", "day12_函数的返回值是value的二进制位模式从左到右翻转后的值。\day12_函数的返回值是value的二进制位模式从左到右翻转后的值。.vcxproj", "{1107DD48-2CC6-4B02-B902-BCEFAAE7A064}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1107DD48-2CC6-4B02-B902-BCEFAAE7A064}.Debug|x64.ActiveCfg = Debug|x64
+		{1107DD48-2CC6-4B02-B902-BCEFAAE7A064}.Debug|x64.Build.0 = Debug|x64
+		{1107DD48-2CC6-4B02-B902-BCEFAAE7A064}.Debug|x86.ActiveCfg = Debug|Win32
+		{1107DD48-2CC6-4B02-B902-BCEFAAE7A064}.Debug|x86.Build.0 = Debug|Win32
+		{1107DD48-2CC6-4B02-B902-BCEFAAE7A064}.Release|x64.ActiveCfg = Release|x64
+		{1107DD48-2CC6-4B02-B902-BCEFAAE7A064}.Release|x64.Build.0 = Release|x64
+		{1107DD48-2CC6-4B02-B902-BCEFAAE7A064}.Release|x86.ActiveCfg = Release|Win32
+		{1107DD48-2CC6-4B02-B902-BCEFAAE7A064}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {390B7335-DFEB-4499-BCFD-4FB593C52831}
+	EndGlobalSection
+EndGlobal
