@@ -10,7 +10,7 @@ void* my_memcpy(void *dest,const void *src,size_t num) {
 	while (num--) {
 		*(char*)dest = *(char*)src;
 		//(char*)dest++;  //这是错的，因为++的优先级高
-		 ++(char*)dest;
+		++ (char*)dest;
 		++ (char*)src;
 
 	}
