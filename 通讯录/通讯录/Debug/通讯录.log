@@ -1,0 +1,3 @@
+﻿  Contact.cpp
+F:\@c语言练习\通讯录\通讯录\Contact.cpp(66): warning C4715: “FindByName”: 不是所有的控件路径都返回值
+  通讯录.vcxproj -> F:\@c语言练习\通讯录\Debug\通讯录.exe

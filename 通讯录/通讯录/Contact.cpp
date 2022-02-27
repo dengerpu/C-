@@ -1,0 +1,157 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include "Contact.h"
+
+
+//初始化通讯录
+void InitContact(struct Contact* p) {
+	memset(p->data, 0, sizeof(p->data));
+	p->size= 0;
+}
+//添加用户
+void AddContact(struct Contact* p) {
+	if (p->size == MAX) {
+		printf("通讯录已满");
+	}
+	else {
+		printf("请输入名字: > ");
+		scanf("%s", p->data[p->size].name);
+		//printf("%s\n", p->data[p->size].name);
+		printf("请输入年龄: > ");
+		scanf("%d", &(p->data[p->size].age));  //注意这里要取地址
+		//printf("%d\n", p->data[p->size].age);
+		printf("请输入性别: > ");
+		scanf("%s", p->data[p->size].sex);
+		//printf("%s\n", p->data[p->size].sex);
+		printf("请输入电话: > ");
+		scanf("%s", p->data[p->size].tele);
+		//printf("%s\n", p->data[p->size].tele);
+		printf("请输入地址: > ");
+		scanf("%s", p->data[p->size].addr);
+		//printf("%s\n", p->data[p->size].addr);
+		p->size++;
+		printf("添加成功\n");
+	}
+}
+//展示用户
+void ShowContact(const struct Contact* p) {
+	if (p->size == 0) {
+		printf("通讯录为空\n");
+	}
+	else {
+		int i = 0;
+		printf("%-20s\t%-5s\t%-5s\t%-11s\t%-30s\n", "姓名", "年龄", "性别", "电话", "地址");
+		for (i = 0; i < p->size; i++) {
+			printf("%-20s\t%-5d\t%-5s\t%-11s\t%-30s\n", 
+					p->data[i].name,
+					p->data[i].age,
+					p->data[i].sex,
+					p->data[i].tele,
+					p->data[i].addr
+				);
+		}
+	}
+}
+static int FindByName(const struct Contact* p,char name[NAME_MAX]) {
+	if (p->size == 0) {
+		printf("通讯录为空\n");
+	}
+	else {
+		for (int i = 0; i < p->size; i++) {
+			if (0 == strcmp(p->data[i].name, name)) {
+				return i;
+			}
+		}
+		return -1;  //找不到
+	}
+}
+//删除用户
+void DelContact(struct Contact* p) {
+	char name[NAME_MAX];
+	printf("请输入要删除的名字:>");
+	scanf("%s", name);
+	int ret = FindByName(p, name);
+	if (-1 == ret) {
+		printf("查找不到\n");
+	}
+	else {
+		for (int i = ret; i < p->size - 1; i++) {
+			p->data[i] = p->data[i + 1];
+		}
+		p->size--;
+		printf("删除成功\n");
+	}
+}
+
+//查找用户
+void SearchContact(const struct Contact* p) {
+	char name[NAME_MAX];
+	printf("请输入要查找的名字:>");
+	scanf("%s", name);
+	int ret = FindByName(p, name);
+	if (-1 == ret) {
+		printf("查找不到\n");
+	}
+	else {
+		printf("%-20s\t%-5s\t%-5s\t%-11s\t%-30s\n", "姓名", "年龄", "性别", "电话", "地址");
+		printf("%-20s\t%-5d\t%-5s\t%-11s\t%-30s\n",
+			p->data[ret].name,
+			p->data[ret].age,
+			p->data[ret].sex,
+			p->data[ret].tele,
+			p->data[ret].addr
+		);
+	}
+}
+
+//修改用户
+void ModifyContact(struct Contact* p) {
+	char name[NAME_MAX];
+	printf("请输入要修改用户的名字:>");
+	scanf("%s", name);
+	int ret = FindByName(p, name);
+	if (-1 == ret) {
+		printf("查找不到\n");
+	}else {
+		printf("请输入名字:>");
+		scanf("%s", p->data[ret].name);
+		printf("请输入年龄:>");
+		scanf("%d", &(p->data[ret].age));
+		printf("请输入性别:>");
+		scanf("%s", p->data[ret].sex);
+		printf("请输入电话:>");
+		scanf("%s", p->data[ret].tele);
+		printf("请输入地址:>");
+		scanf("%s", p->data[ret].addr);
+
+		printf("修改完成\n");
+	}
+
+}
+//void qsort(void* base, size_t nitems, size_t size, int (*compar)(const void*, const void*))
+//
+//参数
+//base-- 指向要排序的数组的第一个元素的指针。
+//nitems-- 由 base 指向的数组中元素的个数。
+//size-- 数组中每个元素的大小，以字节为单位。
+//compar-- 用来比较两个元素的函数，即函数指针（回调函数）
+//排序
+//按照姓名排序
+int cmpByName (const void* e1, const void* e2) {
+	return strcmp((*(struct PeoInfo*)e1).name, (*(struct PeoInfo*)e2).name);
+}
+//按照年龄排序
+int cmpByAge(const void* e1, const void* e2) {
+	return ( ((struct PeoInfo*)e1)->age- ((struct PeoInfo*)e2)->age);
+}
+void SortContact(struct Contact* p) {
+	printf("请输入排序方式：0：姓名  1：年龄（默认为0）\n");
+	int input = 0;
+	scanf("%d", &input);
+	if (input == 1) {
+		qsort(p->data, p->size, sizeof(p->data[0]), cmpByAge);
+	}
+	else {
+		qsort(p->data, p->size, sizeof(p->data[0]), cmpByName);
+	}
+	ShowContact(p);
+}
