@@ -1,0 +1,5 @@
+﻿  Contact.cpp
+  test.cpp
+  正在生成代码...
+F:\@c语言练习\Contact_Dynamic\Contact_Dynamic\Contact.cpp(91): warning C4715: “FindByName”: 不是所有的控件路径都返回值
+  Contact_Dynamic.vcxproj -> F:\@c语言练习\Contact_Dynamic\Debug\Contact_Dynamic.exe
