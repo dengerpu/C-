@@ -1,0 +1,9 @@
+﻿  ToSchool.cpp
+F:\@c语言练习\20.重邮返校信息管理系统\20.重邮返校信息管理系统\ToSchool.cpp(131,11): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 5 拥有了类型“int”
+F:\@c语言练习\20.重邮返校信息管理系统\20.重邮返校信息管理系统\ToSchool.cpp(131,11): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 9 拥有了类型“int”
+F:\@c语言练习\20.重邮返校信息管理系统\20.重邮返校信息管理系统\ToSchool.cpp(131,11): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 11 拥有了类型“int”
+F:\@c语言练习\20.重邮返校信息管理系统\20.重邮返校信息管理系统\ToSchool.cpp(131,11): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 12 拥有了类型“int”
+system.obj : error LNK2019: 无法解析的外部符号 "void __cdecl ShowStudent(struct students const *)" (?ShowStudent@@YAXPBUstudents@@@Z)，函数 _main 中引用了该符号
+    已定义且可能匹配的符号上的提示:
+      "void __cdecl ShowStudent(struct students *)" (?ShowStudent@@YAXPAUstudents@@@Z)
+F:\@c语言练习\20.重邮返校信息管理系统\Debug\20.重邮返校信息管理系统.exe : fatal error LNK1120: 1 个无法解析的外部命令

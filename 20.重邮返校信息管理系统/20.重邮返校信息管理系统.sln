@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "20.重邮返校信息管理系统", "20.重邮返校信息管理系统\20.重邮返校信息管理系统.vcxproj", "{C852FA40-3520-41D1-8798-7EBA0FC634F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C852FA40-3520-41D1-8798-7EBA0FC634F0}.Debug|x64.ActiveCfg = Debug|x64
+		{C852FA40-3520-41D1-8798-7EBA0FC634F0}.Debug|x64.Build.0 = Debug|x64
+		{C852FA40-3520-41D1-8798-7EBA0FC634F0}.Debug|x86.ActiveCfg = Debug|Win32
+		{C852FA40-3520-41D1-8798-7EBA0FC634F0}.Debug|x86.Build.0 = Debug|Win32
+		{C852FA40-3520-41D1-8798-7EBA0FC634F0}.Release|x64.ActiveCfg = Release|x64
+		{C852FA40-3520-41D1-8798-7EBA0FC634F0}.Release|x64.Build.0 = Release|x64
+		{C852FA40-3520-41D1-8798-7EBA0FC634F0}.Release|x86.ActiveCfg = Release|Win32
+		{C852FA40-3520-41D1-8798-7EBA0FC634F0}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6916552E-ADBE-436E-B318-3583CD4AB3F6}
+	EndGlobalSection
+EndGlobal
