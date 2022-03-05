@@ -13,10 +13,11 @@ int main() {
 		switch (input) {
 		case ADD:AddStudent(&p); break;
 		case SEARCH:SearchStudent(&p); break;
-		case MODIFY: MOdifyStudent(&p); break;
+		case MODIFY: ModifyStudent(&p); break;
 		case SORT:SortStudent(&p); break;
 		case SHOW:ShowStudent(&p); break;
-		case EXIT:printf("退出系统\n"); break;
+		case SAVE:SaveStudent(&p); break;
+		case EXIT:printf("退出系统\n"); SaveStudent(&p); DsetoryStudent(&p); break;
 		default:printf("输入有误，请重新输入\n");
 		}
 	} while (input);

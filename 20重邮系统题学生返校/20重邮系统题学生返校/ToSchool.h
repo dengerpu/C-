@@ -4,7 +4,7 @@
 #include<stdlib.h>
 #include<errno.h>
 
-#define DEFAULT_SZ 10  //定义默认的储存量，如果不够动态申请同样大小个
+#define DEFAULT_SZ 1  //定义默认的储存量，如果不够动态申请同样大小个
 #define MALLOC(type,num) (type*)malloc(num*sizeof(type))  //定义一个宏
 
 enum OPTION {
@@ -13,7 +13,8 @@ enum OPTION {
 	SEARCH,
 	MODIFY,
 	SORT,
-	SHOW
+	SHOW,
+	SAVE
 };
 
 typedef struct studentInfo {   //学生信息
@@ -48,6 +49,8 @@ void LoadStudent(students* p);
 void Init(students* p);
 //检查容量是否够用
 void CheckCapacity(students* p);
+//加载学生信息
+void LoadStudent(students* p);
 //添加学生信息
 void AddStudent(students* p);
 //展示学生信息
@@ -55,7 +58,11 @@ void ShowStudent(const students* p);
 //搜索信息
 void SearchStudent(const students* p);
 //修改信息
-void MOdifyStudent(students* p);
+void ModifyStudent(students* p);
 //排序
-void SortStudent(students* p);
+void SortStudent(const students* p);
 
+//保存信息到文件
+void SaveStudent(students* p);
+//释放内存
+void DsetoryStudent(students* p);

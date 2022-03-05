@@ -33,25 +33,14 @@ void menu() {
 	printf("=                   3.修改学生信息                         =\n");
 	printf("=                   4.按顺序输出某学院学生信息             =\n");
 	printf("=                   5.显示学生信息                         =\n");
+	printf("=                   6.保存学生信息                         =\n");
 	printf("=                   0.退出系统                             =\n");
 	printf("=                                                          =\n");
 	printf("=                                                          =\n");
 	printf("============================================================\n");
 }
 
-//初始化
-void Init(students* p) {
-	//memset(p->data, 0, sizeof(p->data));
-	p->data = MALLOC(Student, DEFAULT_SZ);
-	if (p->data == NULL) {
-		printf("%s\n", strerror(errno));  //打印错误信息
-		return;
-	}
-	p->capicty = DEFAULT_SZ;
-	p->size = 0;
-	//加载文件中学生信息
-	//LoadStudent(students * p);
-}
+
 //检查容量是够
 void CheckCapacity(students* p) {
 	Student* pr = NULL;
@@ -69,6 +58,37 @@ void CheckCapacity(students* p) {
 		}
 	}
 }
+//加载学生信息
+void LoadStudent(students* p) {
+	Student tmp = { 0 };
+	FILE* pf = fopen("data.txt", "r+");
+	if (pf == NULL) {
+		printf("%s\n", strerror(errno));
+	}
+	while (fread(&tmp, sizeof(Student), 1, pf)) {
+		CheckCapacity(p);
+		p->data[p->size] = tmp;
+		p->size++;
+	}
+	fclose(pf);
+	pf = NULL;
+}
+//初始化
+void Init(students* p) {
+	//memset(p->data, 0, sizeof(p->data));
+	p->data = MALLOC(Student, DEFAULT_SZ);
+	if (p->data == NULL) {
+		printf("%s\n", strerror(errno));  //打印错误信息
+		return;
+	}
+	p->capicty = DEFAULT_SZ;
+	p->size = 0;
+	//加载文件中学生信息
+	LoadStudent(p);
+}
+
+
+
 
 //添加学生信息
 void AddStudent(students* p) {  
@@ -151,6 +171,7 @@ void ShowStudent(const students* p) {
 		}
 	}
 }
+//打印学生信息
 void Print(const students* p,int i) {
 	printf("学号：%-15s\t姓名：%-15s\t身份证号：%-20s\t\n学院：%-20s\t学生类型：%c\t专业：%-20s\t\n返校路线：%-20s\t交通工具：%-20s\t\n近14天是否有密切接触：%c\t体温：%-10s\t是否发烧：%c\t是否咳嗽：%c\t进校时间：%-20s\n",
 		p->data[i].stu_num,
@@ -224,7 +245,7 @@ int FindByNameID(const students* p, char name[15]) {
 		}
 	}
 }
-void MOdifyStudent(students* p) {
+void ModifyStudent(students* p) {
 	char name[15];
 	int ret = 0;
 	printf("请输入要修改的名字\n");
@@ -238,8 +259,12 @@ int  cmp_bynum(const void *e1,const void *e2) {
 	return strcmp(((Student*)e1)->stu_num, ((Student*)e2)->stu_num);
 }
 
+int cml_byname(const void* e1, const void* e2) {
+	return strcmp( ((Student *)e1)->name, ((Student*)e2)->name);
+}
+
 //排序
-void SortStudent(students* p) {
+void SortStudent(const students* p) {
 	printf("请输入排序方式：0：学号  1：姓名（默认为0）\n");
 	int input = 0;
 	scanf("%d", &input);
@@ -248,6 +273,28 @@ void SortStudent(students* p) {
 		ShowStudent(p);
 	}
 	else {
-	
+		qsort(p->data, p->size, sizeof(p->data[0]), cml_byname);
+		ShowStudent(p);
 	}
+}
+//退出后执行释放函数
+void DsetoryStudent(students* p) {
+	free(p->data);//释放内存
+	p->data = NULL;
+}
+
+//保存信息到文件
+void SaveStudent(students* p) {
+	FILE* fp = fopen("data.txt", "a");
+	if (fp == NULL) {
+		printf("%s\n", strerror(errno));
+		return;
+	}
+	//写入文件中
+	int i = 0;
+	for (i = 0; i < p->size; i++) {
+		fwrite(&(p->data[i]), sizeof(Student), 1, fp);
+	}
+	fclose(fp);
+	fp = NULL;
 }

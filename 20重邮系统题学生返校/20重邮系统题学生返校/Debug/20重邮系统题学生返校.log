@@ -1,5 +1,5 @@
 ﻿  ToSchool.cpp
   test.cpp
   正在生成代码...
-F:\@c语言练习\20重邮系统题学生返校\20重邮系统题学生返校\ToSchool.cpp(226): warning C4715: “FindByNameID”: 不是所有的控件路径都返回值
+F:\@c语言练习\20重邮系统题学生返校\20重邮系统题学生返校\ToSchool.cpp(247): warning C4715: “FindByNameID”: 不是所有的控件路径都返回值
   20重邮系统题学生返校.vcxproj -> F:\@c语言练习\20重邮系统题学生返校\Debug\20重邮系统题学生返校.exe
