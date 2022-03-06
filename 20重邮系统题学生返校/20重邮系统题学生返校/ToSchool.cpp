@@ -98,36 +98,53 @@ void AddStudent(students* p) {
 	printf("请按照下列提示完成信息录入：>\n");
 	printf("请输入学号：>");
 	scanf("%s",p->data[p->size].stu_num);   //vs高版本认为gets不安全，可能会因为读取的字符串太长而导致缓冲区溢出甚至程序崩溃
+	printf("\n");
+	
 	printf("请输入姓名：>");
 	scanf("%s", p->data[p->size].name);
+	printf("\n");
+	
 	printf("请输入身份证号码：>");
 	scanf("%s", p->data[p->size].stu_id);
-	getchar();
+	printf("\n");
+
 	printf("请输入学生类型（本科生：1/硕士生：2/博士生：3/本科生）：>");
 	scanf("%c", &(p->data[p->size].stu_type));
-	printf("%d\n", p->data[p->size].stu_type);
+	printf("\n");
+	//printf("%d\n", p->data[p->size].stu_type);
 	printf("请输入所在学院：>");
 	scanf("%s", p->data[p->size].college);
+	printf("\n");
 	printf("请输入所在专业：>");
 	scanf("%s", p->data[p->size].major);
+	printf("\n");
 	printf("请输入返校所经城市：>");
 	scanf("%s", p->data[p->size].route);
+	printf("\n");
 	printf("请输入交通工具：>");
 	scanf("%s", p->data[p->size].trafficTools);
-	getchar();
+	printf("\n");
+	//getchar();
 	printf("过去14天是否密切接触确诊人员（是：1/否：0）：>");
 	scanf("%c", &(p->data[p->size].isCloseContact));
+	printf("\n");
 	printf("请输入入校时的温度：>");
 	//getchar();
 	scanf("%s", p->data[p->size].temperature);
+	printf("\n");
 	printf("是否发烧（是：1/否：0）：>");
-	getchar();
+	//getchar();
 	scanf("%c", &(p->data[p->size].isFever));
 	printf("是否咳嗽（是：1/否：0）：>");
-	getchar();
+	printf("\n");
+//getchar();
 	scanf("%c", &(p->data[p->size].isCough));
+	printf("\n");
+
 	printf("请输入入校时间：>");
 	scanf("%s", p->data[p->size].time);
+	printf("\n");
+
 	p->size++;
 
 	//strcat(file, p->data[p->size].college);
