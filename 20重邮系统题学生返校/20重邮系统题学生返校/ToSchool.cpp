@@ -63,13 +63,30 @@ void LoadStudent(students* p) {
 	Student tmp = { 0 };
 	FILE* pf = fopen("data.txt", "r+");
 	if (pf == NULL) {
-		printf("%s\n", strerror(errno));
+		pf = fopen("data.txt", "w");
+		//printf("%s\n", strerror(errno));4
+		
 	}
-	while (fread(&tmp, sizeof(Student), 1, pf)) {
-		CheckCapacity(p);
-		p->data[p->size] = tmp;
+	printf("%d\n", p->size);
+	while ((fscanf(pf, "%s%s%s%s%c%s%s%s%c%s%c%c%s",
+		p->data[p->size].stu_num,
+		p->data[p->size].name,
+		p->data[p->size].stu_id,
+		p->data[p->size].college,
+		&(p->data[p->size].stu_type),
+		p->data[p->size].major,
+		p->data[p->size].route,
+		p->data[p->size].trafficTools,
+		&(p->data[p->size].isCloseContact),
+		p->data[p->size].temperature,
+		&(p->data[p->size].isFever),
+		&(p->data[p->size].isCough),
+		p->data[p->size].time))!=EOF) {
+		
 		p->size++;
+		printf("%d\n", p->size);
 	}
+	
 	fclose(pf);
 	pf = NULL;
 }
@@ -107,7 +124,7 @@ void AddStudent(students* p) {
 	printf("请输入身份证号码：>");
 	scanf("%s", p->data[p->size].stu_id);
 	printf("\n");
-
+	getchar();
 	printf("请输入学生类型（本科生：1/硕士生：2/博士生：3/本科生）：>");
 	scanf("%c", &(p->data[p->size].stu_type));
 	printf("\n");
@@ -124,20 +141,20 @@ void AddStudent(students* p) {
 	printf("请输入交通工具：>");
 	scanf("%s", p->data[p->size].trafficTools);
 	printf("\n");
-	//getchar();
+	getchar();
 	printf("过去14天是否密切接触确诊人员（是：1/否：0）：>");
 	scanf("%c", &(p->data[p->size].isCloseContact));
 	printf("\n");
 	printf("请输入入校时的温度：>");
-	//getchar();
+	getchar();
 	scanf("%s", p->data[p->size].temperature);
 	printf("\n");
 	printf("是否发烧（是：1/否：0）：>");
-	//getchar();
+	getchar();
 	scanf("%c", &(p->data[p->size].isFever));
 	printf("是否咳嗽（是：1/否：0）：>");
 	printf("\n");
-//getchar();
+    getchar();
 	scanf("%c", &(p->data[p->size].isCough));
 	printf("\n");
 
@@ -302,15 +319,30 @@ void DsetoryStudent(students* p) {
 
 //保存信息到文件
 void SaveStudent(students* p) {
-	FILE* fp = fopen("data.txt", "a");
+	FILE* fp = fopen("data.txt", "w");
 	if (fp == NULL) {
 		printf("%s\n", strerror(errno));
 		return;
 	}
 	//写入文件中
+	fprintf(fp, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t\n", "学号", "姓名", "身份证号", "学院", "学生类型", "专业", "返校路线", "交通工具", "近14天是否有密切接触", "体温", "是否发烧", "是否咳嗽", "进校时间");
 	int i = 0;
 	for (i = 0; i < p->size; i++) {
-		fwrite(&(p->data[i]), sizeof(Student), 1, fp);
+		//fprintf(fp, "%s\t%s\t%s\t%s\t%s\t%s\t")
+		fprintf(fp, "%s\t%s\t%s\t%s\t%c\t%s\t%s\t%s\t%c\t%s\t%c\t%c\t%s\t\n",
+			p->data[i].stu_num,
+			p->data[i].name,
+			p->data[i].stu_id,
+			p->data[i].college,
+			p->data[i].stu_type,
+			p->data[i].major,
+			p->data[i].route,
+			p->data[i].trafficTools,
+			p->data[i].isCloseContact,
+			p->data[i].temperature,
+			p->data[i].isFever,
+			p->data[i].isCough,
+			p->data[i].time);
 	}
 	fclose(fp);
 	fp = NULL;
