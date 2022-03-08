@@ -1,0 +1,4 @@
+﻿  源.cpp
+F:\@c语言练习\substr函数实现\substr函数实现\源.cpp(26,10): warning C4018: “>”: 有符号/无符号不匹配
+F:\@c语言练习\substr函数实现\substr函数实现\源.cpp(32,11): warning C4018: “>”: 有符号/无符号不匹配
+  substr函数实现.vcxproj -> F:\@c语言练习\substr函数实现\Debug\substr函数实现.exe
