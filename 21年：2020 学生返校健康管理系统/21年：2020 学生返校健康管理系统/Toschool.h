@@ -4,19 +4,19 @@
 #include<stdlib.h>
 
 typedef struct student {
-	char stu_num[8];//学号
+	char stu_num[10];//学号
 	char name[15];  //姓名
 	char college[20];//学院
-	char temperate[4];//温度
+	char temperate[5];//温度
 	char isCough;     ///是否咳嗽
 	char status;      //健康状态
-	char time[5];     //时间
-	char date[8];    //日期
+	char time[8];     //时间
+	char date[10];    //日期
 		
 }Student;
 
 typedef struct students {
-	Student data[10];
+	Student data[20];
 	int size;
 }Students;
 
@@ -26,22 +26,9 @@ enum option {
 	MODIFY,
 	DELETE,
 	SEARCH,
-	ABNORMAL
+	ABNORMAL,
+	PRINT
 };
-enum college {
-	通信学院 = 1,    //01	
-	计算机学院,  //02
-	光电学院,	 //03
-	自动化学院, //04
-	经管学院,    //05
-	研究生院,    //06
-	外语学院,    //07
-	安法学院,     //08
-	体育学院,     //09
-	传媒学院,     //10
-	先进制造学院, //11
-	马克思主义学院,//12
-}enum_college;
 
 
 //初始化学生信息
@@ -52,7 +39,16 @@ void InitStudent(Students* p);
 void addStudent(Students* p);
 
 //打印学生信息
-void printStudent(Students* p);
+void printStudent(const Students* p);
+
+//保存数据到文件
+void saveStudent(const char* filename,const Students* p);
+
+//修改学生信息
+void modifyStudent(Students* p);
+
+//查询学生信息模块
+void searchStudent(Students* p);
 
 
 
