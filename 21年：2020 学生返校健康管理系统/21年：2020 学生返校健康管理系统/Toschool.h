@@ -3,6 +3,8 @@
 #include<string.h>
 #include<stdlib.h>
 
+#define DEFAULT_SIZE 10
+
 typedef struct student {
 	char stu_num[10];//学号
 	char name[15];  //姓名
@@ -24,7 +26,7 @@ enum option {
 	EXIT,
 	ADD,
 	MODIFY,
-	DELETE,
+	ADVICE,
 	SEARCH,
 	ABNORMAL,
 	PRINT
@@ -49,6 +51,12 @@ void modifyStudent(Students* p);
 
 //查询学生信息模块
 void searchStudent(Students* p);
+
+//异常学生信息模块
+void abnormalStudent(const char * filename, Students* p);
+
+//连续三天及其以上非健康状态预警模块
+void abnormaladvice(const char* filename, Students* p);
 
 
 

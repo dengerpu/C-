@@ -260,6 +260,38 @@ void printSingleStundet(Student* p) {
 
 }
 
+//异常学生信息模块
+void abnormalStudent(const char * filename,Students* p) {
+	FILE* fp = fopen(filename, "w");
+	if (fp == NULL) {
+		printf("%s\n", strerror(errno));
+	}
+	int print_flag = 1;
+	for (int i = 0; i < p->size; i++) {
+		//printf("%s\n", p->data[i].temperate);
+		if (p->data[i].status == '0') {
+			fprintf(fp, "%s\t%s\t%s\t%s\t%c\t%c\t%s\t%s\n",
+				p->data[i].stu_num,
+				p->data[i].name,
+				p->data[i].college,
+				p->data[i].temperate,
+				p->data[i].isCough,
+				p->data[i].status,
+				p->data[i].time,
+				p->data[i].date);
+			if (print_flag) {
+				printf("%-8s\t%-6s\t%-10s\t%s\t%s\t%s\t%s\t%s\t\n", "学号", "姓名", "学院", "温度", "是否咳嗽", "健康状态", "时间", "日期");
+				print_flag = 0;
+			}
+			printSingleStundet(&(p->data[i]));
+		}
+	}
+	fclose(fp);
+	fp = NULL;
+	
+}
+
+
 //查询学生信息并保存到文件中
 void findStudentAndSave(char* query,char *date, const char* filename, Students* p) {
 	if (query == NULL) {
@@ -331,4 +363,38 @@ void saveStudent(const char* filename, const Students * p) {
 	}
 	fclose(fp);
 	fp = NULL;
+}
+
+//连续三天及其以上非健康状态预警模块
+void abnormaladvice(const char* filename, Students* p) {
+	FILE* fp = fopen(filename, "w");
+	if (fp == NULL) {
+		printf("%s\n", strerror(errno));
+	}
+	int print_flag = 1;
+	for (int i = 0; i < p->size; i++) {
+		if (i < p->size - 3) {
+			if (p->data[i].status == '0' && p->data[i + 1].status == '0' && p->data[i + 2].status == '0') {
+				fprintf(fp, "%s\t%s\t%s\t%s\t%c\t%c\t%s\t%s\n",
+					p->data[i].stu_num,
+					p->data[i].name,
+					p->data[i].college,
+					p->data[i].temperate,
+					p->data[i].isCough,
+					p->data[i].status,
+					p->data[i].time,
+					p->data[i].date);
+				if (print_flag) {
+					printf("%-8s\t%-6s\t%-10s\t%s\t%s\t%s\t%s\t%s\t\n", "学号", "姓名", "学院", "温度", "是否咳嗽", "健康状态", "时间", "日期");
+					print_flag = 0;
+				}
+				printSingleStundet(&(p->data[i]));
+			}
+		}
+		
+	}
+	fclose(fp);
+	fp = NULL;
+
+	
 }
