@@ -29,11 +29,12 @@ void insertNodeNyHead(struct Node* listHeadNode, struct student data) {
 }
 
 //尾插法，插入节点
-void insertNodeByTail(struct Node* listHeadNode, struct student data) {
+struct Node* insertNodeByTail(struct Node* listHeadNode, struct student data) {
 	//struct Node* L = listHeadNode;
 	//struct Node* newNode = createNode(data);//申请一个新结点
-	//listHeadNode->next = newNode;
-	//listHeadNode = newNode;
+	//L->next = newNode;
+	//L = newNode;
+	//return listHeadNode;
 }
 
 //删除链表

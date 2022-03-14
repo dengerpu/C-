@@ -25,7 +25,7 @@ struct Node* createNode(struct Node data);
 //头插法，插入节点
 void insertNodeNyHead(struct Node* listHeadNode, struct student data);
 //尾插法，插入节点
-void insertNodeByTail(struct Node* listHeadNode, struct student data);
+struct Node* insertNodeByTail(struct Node* listHeadNode, struct student data);
 //删除链表
 void deleteNodeByquery(struct Node* listHeadNode, char* query);
 //查找结点

@@ -34,8 +34,8 @@ int main() {
 			printf("请输入要插入的学生信息:>\n");
 			printf("请输入姓名、学号、年龄、电话、地址：>");
 			scanf("%s%s%d%s%s", tempData.name, tempData.num, &(tempData.age), tempData.tel, tempData.addr);
-			//insertNodeNyHead(list, tempData);
-			insertNodeByTail(list, tempData);
+			insertNodeNyHead(list, tempData);
+			//list = insertNodeByTail(list, tempData);
 			break;
 		case 2:
 			printf("\t\t【浏览信息】\n");
