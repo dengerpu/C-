@@ -13,7 +13,8 @@ enum adminOption {
 	DELETESTUDENT,
 	QUERYSTUDENT,
 	PRINTUSER,
-	PRINTSTUDENT
+	PRINTSTUDENT,
+	SORT
 };
 
 
@@ -49,7 +50,7 @@ struct Node {
 };
 
 //登陆
-int login(struct Accounts* userList);
+int login(struct Accounts* userList,char* user);
 //管理员菜单
 void adminMenu();
 //系统操作员菜单
@@ -79,7 +80,11 @@ struct Node* createList();
 struct Node* createNode(struct Node data);
 //学生成绩 头插法，插入节点
 void insertNodeNyHead(struct Node* listHeadNode, struct student data);
+//计算学生成绩链表长度
+int getStudentLenth(struct Node* listHeadNode);
 //读取文件中学生成绩信息
 void readStudentInfoFromFile(const char* filename, struct Node* listHeadNode);
 //保存学生信息到文件
 void saveStudentInfoToFile(const char* filename, struct Node* listHeadNode);
+//保存排序后的学生信息到文件
+void saveSortStudentInfoToFile(const char* filename, struct Node* listHeadNode);

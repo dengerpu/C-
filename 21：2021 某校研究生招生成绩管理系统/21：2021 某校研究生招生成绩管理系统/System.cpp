@@ -74,7 +74,7 @@ void AdviceModifyPwd(struct Accounts* userList, char* user, char* pwd) {
 }
 
 //登陆
-int login(struct Accounts* userList) {
+int login(struct Accounts* userList,char* user) {
 	char account[10] = { 0 };
 	char password[10] = { 0 };
 	int i = 3;
@@ -97,6 +97,7 @@ int login(struct Accounts* userList) {
 		else if (type ==3 ) {
 			printf("欢迎学生登录\n");
 			AdviceModifyPwd(userList, account, password);
+			strcpy(user, account);//把user传递回去给学生
 			return 3;
 		}
 		else {
@@ -123,6 +124,7 @@ void adminMenu() {
 	printf("\t\t8.查询学生成绩信息\n");
 	printf("\t\t9.打印用户信息\n");
 	printf("\t\t10.打印学生成绩信息\n");
+	printf("\t\t11.排序\n");
 	printf("----------------------------------------\n");
 	printf("请选择操作:>");
 }
@@ -135,6 +137,7 @@ void SystemoptionMenu() {
 	printf("\t\t3.删除学生成绩信息\n");
 	printf("\t\t4.查询学生成绩信息\n");
 	printf("\t\t5.打印学生成绩信息\n");
+	printf("\t\t6.排序\n");
 	printf("---------------------------------------\n");
 	printf("请选择操作:>");
 }
@@ -168,7 +171,7 @@ void insertUserNodeNyHead(struct Accounts* listHeadNode, struct Account account)
 	listHeadNode->next = newNode;
 }
 
-//计算链表长度
+//计算用户链表长度
 int getUserLenth(struct Accounts* listHeadNode) {
 	int length = 0;
 	struct Accounts* node = listHeadNode->next;
@@ -183,6 +186,22 @@ int getUserLenth(struct Accounts* listHeadNode) {
 		return length;
 	}
 }
+//计算学生成绩链表长度
+int getStudentLenth(struct Node* listHeadNode) {
+	int length = 0;
+	struct Node* node = listHeadNode->next;
+	if (node == NULL) {
+		return 0;
+	}
+	else {
+		while (node != NULL) {
+			node = node->next;
+			length++;
+		}
+		return length;
+	}
+}
+
 
 //创建学生链表
 struct Node* createList() {
@@ -231,3 +250,21 @@ void saveStudentInfoToFile(const char* filename, struct Node* listHeadNode) {
 	fclose(fp);
 	fp = NULL;
 }
+
+//保存排序后的学生信息到文件
+void saveSortStudentInfoToFile(const char* filename, struct Node* listHeadNode) {
+	FILE* fp = fopen(filename, "w");
+	struct Node* pMove = listHeadNode->next;
+	int i = 0;
+	while (pMove) {
+		fprintf(fp, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t\n", pMove->data.stu_id, pMove->data.name, pMove->data.colleage, pMove->data.type, pMove->data.course1, pMove->data.course2, pMove->data.course3, pMove->data.course4, pMove->data.ptest, pMove->data.retest, pMove->data.olanguage, pMove->data.comprehensive);
+		i++;
+		if (i % 10 == 0) {   //每隔10条信息以一个空行隔开
+			fprintf(fp, "\n");
+		}
+		pMove = pMove->next;
+	}
+	fclose(fp);
+	fp = NULL;
+}
+
