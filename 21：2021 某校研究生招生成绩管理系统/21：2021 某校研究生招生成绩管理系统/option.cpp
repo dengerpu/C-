@@ -290,13 +290,15 @@ void addStudent(struct Accounts* userList,struct Node* list) {
 		scanf("%s", tempData.course4);
 	}
 	double total = atof(tempData.course1) + atof(tempData.course2) + atof(tempData.course3) + atof(tempData.course4);
-	_gcvt(total, 6, tempData.ptest);
+	_gcvt(total, 5, tempData.ptest);
+	removedot(tempData.ptest, strlen(tempData.ptest));
 	printf("复试成绩：");
 	scanf("%s", tempData.retest);
 	while (atof(tempData.retest) < 0 || atof(tempData.retest) > 200) {
 		printf("输入有误,重新输入：");
 		scanf("%s", tempData.retest);
 	}
+	removedot(tempData.retest, strlen(tempData.retest));
 	printf("口语成绩：");
 	scanf("%s", tempData.olanguage);
 	while (atof(tempData.olanguage) < 0 || atof(tempData.olanguage) > 20) {
@@ -304,7 +306,8 @@ void addStudent(struct Accounts* userList,struct Node* list) {
 		scanf("%s", tempData.olanguage);
 	}
 	float totalGrade = atof(tempData.ptest) * 0.6 + atof(tempData.retest) * 0.3 + atof(tempData.olanguage) * 0.1;
-	_gcvt(totalGrade, 6, tempData.comprehensive);
+	_gcvt(totalGrade, 5, tempData.comprehensive);
+	removedot(tempData.comprehensive, strlen(tempData.comprehensive));
 	insertNodeNyHead(list, tempData);
 	/*printf("%-5s\t%-5s\t%s\t%s %s %s %s %s %s %s %s %s\n", "复试学号", "姓名", "报考学院", "报考类别", "基础课1", "基础课2", "专业课1", "专业课2", "初试成绩", "复试成绩", "口语成绩", "综合成绩");
 	printf("%-5s\t%-5s\t%s\t%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t\n", tempData.stu_id, tempData.name, tempData.colleage, tempData.type, tempData.course1, tempData.course2, tempData.course3, tempData.course4, tempData.ptest, tempData.retest, tempData.olanguage, tempData.comprehensive);*/
@@ -362,10 +365,8 @@ void modifyStudentBySid(struct Node* list) {
 			scanf("%s", modifyNode->data.course4);
 		}
 		int total = atof(modifyNode->data.course1) + atof(modifyNode->data.course2) + atof(modifyNode->data.course3) + atof(modifyNode->data.course4);
-		_gcvt(total, 3, modifyNode->data.ptest);   //因为采用的是浮点数，出现整数100将是100. 多个点，所以就把这个点去掉
-		if ((modifyNode->data.ptest)[strlen(modifyNode->data.ptest) - 1] == '.') {
-			(modifyNode->data.ptest)[strlen(modifyNode->data.ptest) - 1] == '\0';
-		}
+		_gcvt(total, 5, modifyNode->data.ptest);   //因为采用的是浮点数，出现整数100将是100. 多个点，所以就把这个点去掉
+		removedot(modifyNode->data.ptest, strlen(modifyNode->data.ptest));
 		printf("复试成绩：");
 		scanf("%s", modifyNode->data.retest);
 		while (atof(modifyNode->data.retest) < 0 || atof(modifyNode->data.retest) > 200) {
@@ -380,6 +381,7 @@ void modifyStudentBySid(struct Node* list) {
 		}
 		float totalGrade = atof(modifyNode->data.ptest) * 0.6 + atof(modifyNode->data.retest) * 0.3 + atof(modifyNode->data.olanguage) * 0.1;
 		_gcvt(totalGrade, 5, modifyNode->data.comprehensive);
+		removedot(modifyNode->data.comprehensive, strlen(modifyNode->data.comprehensive));
 		//insertNodeNyHead(list, modifyNode->data);
 		/*printf("%-5s\t%-5s\t%s\t%s %s %s %s %s %s %s %s %s\n", "复试学号", "姓名", "报考学院", "报考类别", "基础课1", "基础课2", "专业课1", "专业课2", "初试成绩", "复试成绩", "口语成绩", "综合成绩");
 		printf("%-5s\t%-5s\t%s\t%s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t %s\t\n", tempData.stu_id, tempData.name, tempData.colleage, tempData.type, tempData.course1, tempData.course2, tempData.course3, tempData.course4, tempData.ptest, tempData.retest, tempData.olanguage, tempData.comprehensive);*/
@@ -453,34 +455,111 @@ void queryAllStudent(struct Node* list) {
 		}
 	}
 }
+//查找学生成绩
+void queryAllStudentByArray(struct student* list,int length) {
+	if (length == 0) {
+		printf("表为空\n");
+		return;
+	}
+	else {
+		printf("%-5s\t%-5s\t%s\t%-8s\t%s %s %s %s %s %s %s %s\n", "复试学号", "姓名", "报考学院", "报考类别", "基础课1", "基础课2", "专业课1", "专业课2", "初试成绩", "复试成绩", "口语成绩", "综合成绩");
+		for (int i = 0; i < length; i++) {
+			printf("%-5s\t%-5s\t%s\t%-8s\t %s\t %s\t %s\t %s\t %s\t %s\t   %s\t   %s\t\n", list[i].stu_id, list[i].name, list[i].colleage, list[i].type, list[i].course1, list[i].course2, list[i].course3, list[i].course4, list[i].ptest, list[i].retest, list[i].olanguage, list[i].comprehensive);
+		}
+	}
+}
 //通过综合成绩排名
 int cmp_by_comprehensive(const void* e1, const void* e2) {
 	//return (strcmp(((struct student*)e1)->comprehensive ,((struct student*)e2)->comprehensive));
+	double a = 0, b = 0;
+	 a = atof(((struct student *)e1)->comprehensive);
+	 b = atof(((struct student *)e2)->comprehensive);
 	
 	//printf("%s\n", ((struct Node*)e1)->data.comprehensive);
 //	printf("%s\n", ((struct Node*)e2)->data.comprehensive);
-	double a = atof(((struct Node*)e1)->data.comprehensive);
-	double b = atof(((struct Node*)e2)->data.comprehensive);
-	//printf("a:%lf\n", a);
-	//printf("b:%lf\n", b);
+	//double a = atof(((struct Node*)e1)->data.comprehensive);
+	//double b = atof(((struct Node*)e2)->data.comprehensive);
+	////printf("a:%lf\n", a);
+	////printf("b:%lf\n", b);
 	if (a > b) {
+		return -1;  //逆序排列
+	}else if (a < b) {
 		return 1;
-	}
-	else if (a < b) {
-		return -1;
-	}
-	else {
-		return 0;
+	}else if(a==b) {  //综合成绩相同，按照初试总分排
+		a = atof(((struct student*)e1)->ptest);
+		b = atof(((struct student*)e2)->ptest);
+		if (a > b) { return -1; }
+		else if (a < b) { return 1; }
+		else if (a == b) {//初试总分相同，按照复试成绩排
+			a = atof(((struct student*)e1)->retest);
+			b = atof(((struct student*)e2)->retest);
+			if (a > b) { return -1; }
+			else if (a < b) { return 1; }
+			else if (a == b) {   //复试成绩相同，按照专业课1排
+				a = atof(((struct student*)e1)->course3);
+				b = atof(((struct student*)e2)->course3);
+				if (a > b) { return -1; }
+				else if (a < b) { return 1; }
+				else if (a == b) {  //专业课1成绩相同，按专业课2排
+					a = atof(((struct student*)e1)->course3);
+					b = atof(((struct student*)e2)->course3);
+					if (a > b) { return -1; }
+					else if (a < b) { return 1; }
+					else {
+						return 0;
+					}
+				}
+			}
+		}
+		
 	}
 }
 //排序
+//void sort(struct Node* list) {
+//	struct Node* list1;//学硕表
+//	struct Node* list2;//专硕表
+//	struct Node* list3;//非全日制
+//	list1 = createList();
+//	list2 = createList();
+//	list3 = createList();
+//	struct Node* posNode = list->next;
+//	if (posNode == NULL) {
+//		printf("表为空\n");
+//		return;
+//	}
+//	else {
+//		while (posNode != NULL) {
+//			if (strcmp(posNode->data.type, "学硕") == 0) {
+//				insertNodeNyHead(list1, posNode->data);
+//				//printf("%s\n", posNode->data.comprehensive);
+//			}else if (strcmp(posNode->data.type, "专硕") == 0) {
+//				insertNodeNyHead(list2, posNode->data);
+//			}else if (strcmp(posNode->data.type, "非全日制") == 0) {
+//				insertNodeNyHead(list3, posNode->data);
+//			}
+//			posNode = posNode->next;
+//		}
+//		//对这三个表进行排序
+//		qsort(list1,getStudentLenth(list1),sizeof(list1),cmp_by_comprehensive);
+//		//qsort(list2, getStudentLenth(list2), sizeof(list2), cmp_by_comprehensive);
+//		//qsort(list3, getStudentLenth(list3), sizeof(list3), cmp_by_comprehensive);
+//
+//		queryAllStudent(list1);
+//		//保存到文件中去
+//		//saveSortStudentInfoToFile("data3.txt", list1);
+//		//saveSortStudentInfoToFile("data4.txt", list2);
+//		//saveSortStudentInfoToFile("data5.txt", list3);
+//		printf("排序成功\n");
+//	}
+//	free(list1);
+//	free(list2);
+//	free(list3);
+//}
 void sort(struct Node* list) {
-	struct Node* list1;//学硕表
-	struct Node* list2;//专硕表
-	struct Node* list3;//非全日制
-	list1 = createList();
-	list2 = createList();
-	list3 = createList();
+	struct student list1[STUDENT_MAX] ;//学硕表
+	struct student list2[STUDENT_MAX];//专硕表
+	struct student list3[STUDENT_MAX];//非全日制
+	int i = 0, j = 0, k = 0;
 	struct Node* posNode = list->next;
 	if (posNode == NULL) {
 		printf("表为空\n");
@@ -489,30 +568,34 @@ void sort(struct Node* list) {
 	else {
 		while (posNode != NULL) {
 			if (strcmp(posNode->data.type, "学硕") == 0) {
-				insertNodeNyHead(list1, posNode->data);
+				//insertNodeNyHead(list1, posNode->data);
+				list1[i++] = posNode->data;
 				//printf("%s\n", posNode->data.comprehensive);
-			}else if (strcmp(posNode->data.type, "专硕") == 0) {
-				insertNodeNyHead(list2, posNode->data);
-			}else if (strcmp(posNode->data.type, "非全日制") == 0) {
-				insertNodeNyHead(list3, posNode->data);
+			}
+			else if (strcmp(posNode->data.type, "专硕") == 0) {
+				//insertNodeNyHead(list2, posNode->data);
+				list2[j++] = posNode->data;
+			}
+			else if (strcmp(posNode->data.type, "非全日制") == 0) {
+				//insertNodeNyHead(list3, posNode->data);
+				list3[k++] = posNode->data;
 			}
 			posNode = posNode->next;
 		}
 		//对这三个表进行排序
-		qsort(list1,getStudentLenth(list1),sizeof(list1),cmp_by_comprehensive);
-		qsort(list2, getStudentLenth(list2), sizeof(list2), cmp_by_comprehensive);
-		qsort(list3, getStudentLenth(list3), sizeof(list3), cmp_by_comprehensive);
+		qsort(list1, i, sizeof(list1[0]), cmp_by_comprehensive);
+		qsort(list2, j, sizeof(list2[0]), cmp_by_comprehensive);
+		qsort(list3, k, sizeof(list3[0]), cmp_by_comprehensive);
+		//qsort(list2, getStudentLenth(list2), sizeof(list2), cmp_by_comprehensive);
+		//qsort(list3, getStudentLenth(list3), sizeof(list3), cmp_by_comprehensive);
 
-		//queryAllStudent(list1);
+		//queryAllStudentByArray(list1, i);
 		//保存到文件中去
-		saveSortStudentInfoToFile("data3.txt", list1);
-		saveSortStudentInfoToFile("data4.txt", list2);
-		saveSortStudentInfoToFile("data5.txt", list3);
+		saveSortStudentInfoToFile("data3.txt", list1,i);
+		saveSortStudentInfoToFile("data4.txt", list2,j);
+		saveSortStudentInfoToFile("data5.txt", list3,k);
 		printf("排序成功\n");
 	}
-	free(list1);
-	free(list2);
-	free(list3);
 }
 //释放内存
 void destory(struct Accounts* userList, struct Node* list) {

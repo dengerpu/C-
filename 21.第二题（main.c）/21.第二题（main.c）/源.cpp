@@ -15,6 +15,7 @@ typedef struct {
     char username[32];
     char password[32];
     bool password_changed;
+    int type;
 } account_info_t;
 
 account_info_t accounts[MAX];
@@ -32,13 +33,13 @@ typedef struct student_info_t {
     double second_score;      //复试成绩
     double speaking_score;    // 口语成绩
     double overall_score;     // 综合成绩
-    struct student_info_t* next;
+    struct student_info_t *next;
 } student_info_t;
 
-student_info_t* student_info_list = NULL;       // 所有学生链表
-student_info_t* taught_student_list = NULL;     // 学硕
-student_info_t* spec_student_list = NULL;       // 专硕
-student_info_t* part_time_student_list = NULL;  // 非全日制
+student_info_t *student_info_list = NULL;       // 所有学生链表
+student_info_t *taught_student_list = NULL;     // 学硕
+student_info_t *spec_student_list = NULL;       // 专硕
+student_info_t *part_time_student_list = NULL;  // 非全日制
 
 // 学院信息编号表
 typedef struct {
@@ -46,7 +47,7 @@ typedef struct {
     char school[64];  // 学院
 } school_info_t;
 
-school_info_t school_info[] = {  //结构体数组用来存储学院信息
+school_info_t school_info[] = {
     {"01", "通信学院"},
     {"02", "计算机学院"},
     {"03", "光电学院"},
@@ -61,30 +62,33 @@ school_info_t school_info[] = {  //结构体数组用来存储学院信息
     {"12", "马克思主义学院"},
 };
 
-void get_account_info(); // 从文件读取账户信息
-void update_password(const char* username, const char* password);// 更新密码
-bool is_valid_account(const char* username, const char* password);
-bool is_admin(const char* username);
-bool is_operator(const char* username);
-bool is_first_login(const char* username);
+void get_account_info();
+void update_password(const char *username, const char *password);
+bool is_valid_account(const char *username, const char *password);
+bool is_admin(const char *username);
+bool is_operator(const char *username);
+bool is_first_login(const char *username);
 int login();
+bool has_account_exist(const char *username);
+void add_operator();
 void admin_menu();
 void operator_menu();
 void student_menu();
 void get_student_info();
-void free_student_list(student_info_t* list);
-const char* get_school_by_id(char* id);
-void update_student_info();
-bool is_valid_type(const char* type);
-student_info_t* get_student_by_id(const char* id);
+void free_student_list(student_info_t *list);
+const char *get_school_by_id(char *id);
+void update_account_info();
+bool is_valid_type(const char *type);
+student_info_t *get_student_by_id(const char *id);
 void add_student_info();
 void remove_student_info();
 void modify_student_info();
 void search_student_info();
 void category_student_by_type();
-void export_student_info_to_file(const char* filename, student_info_t* list);
+void export_student_info_to_file(const char *filename, student_info_t *list);
 void sort_student_by_score();
 void get_student_statistic();
+void display_all_students_info();
 
 int main() {
     get_account_info();
@@ -94,11 +98,9 @@ int main() {
 
     if (user_type == ADMIN) {
         admin_menu();
-    }
-    else if (user_type == OPERATOR) {
+    } else if (user_type == OPERATOR) {
         operator_menu();
-    }
-    else {
+    } else {
         student_menu();
     }
 
@@ -115,28 +117,37 @@ int main() {
  *      用户管理模块      *
  *************************/
 
- // 从文件读取账户信息
+// 从文件读取账户信息
 void get_account_info() {
-    FILE* fp = fopen("data1.txt", "r");
-    if (!fp) {   //如果没有文件，就创建文件，并向文件中存储账号密码
+    FILE *fp = fopen("data1.txt", "r");
+    if (!fp) {
         fp = fopen("data1.txt", "w");
 
-        fprintf(fp, "admin admin\n");
-        fprintf(fp, "user01 user01\n");
-        strcpy(accounts[0].username, "admin");
-        strcpy(accounts[0].password, "admin");
-        accounts[0].password_changed = false;  //密码没有更改
-        strcpy(accounts[1].username, "user01");
-        strcpy(accounts[1].password, "user01");
-        accounts[1].password_changed = false;   
+        const char *admin = "admin";
+        const char *user01 = "user01";
+        int password_changed = 0;
+
+        fprintf(fp, "%s %s %d %d\n", admin, admin, password_changed, ADMIN);
+        fprintf(fp, "%s %s %d %d\n", user01, user01, password_changed, OPERATOR);
+
+        strcpy(accounts[0].username, admin);
+        strcpy(accounts[0].password, admin);
+        accounts[0].password_changed = false;
+        accounts[0].type = ADMIN;
+        strcpy(accounts[1].username, user01);
+        strcpy(accounts[1].password, user01);
+        accounts[1].password_changed = false;
+        accounts[1].type = OPERATOR;
+
         accounts_len = 2;
 
         fclose(fp);
         return;
     }
-    //读取文件中的账号密码
-    while (fscanf(fp, "%s %s", accounts[accounts_len].username, accounts[accounts_len].password) != EOF) {
-        accounts[accounts_len].password_changed = false;
+
+    int password_changed = 0;
+    while (fscanf(fp, "%s %s %d %d", accounts[accounts_len].username, accounts[accounts_len].password, &password_changed, &accounts[accounts_len].type) != EOF) {
+        accounts[accounts_len].password_changed = (bool)password_changed;
         accounts_len++;
     }
 
@@ -144,26 +155,23 @@ void get_account_info() {
 }
 
 // 更新密码
-void update_password(const char* username, const char* password) {
-    FILE* fp = fopen("data1.txt", "w");
+void update_password(const char *username, const char *password) {
+    FILE *fp = fopen("data1.txt", "w");
 
     int i = 0;
     for (i = 0; i < accounts_len; i++) {
         if (strcmp(username, accounts[i].username) == 0) {
             strcpy(accounts[i].password, password);
             accounts[i].password_changed = true;
-            fprintf(fp, "%s %s\n", username, password);
         }
-        else {
-            fprintf(fp, "%s %s\n", accounts[i].username, accounts[i].password);
-        }
+        fprintf(fp, "%s %s %d %d\n", accounts[i].username, accounts[i].password, accounts[i].password_changed, accounts[i].type);
     }
 
     fclose(fp);
 }
 
 // 判断是否为合法账户
-bool is_valid_account(const char* username, const char* password) {
+bool is_valid_account(const char *username, const char *password) {
     int i = 0;
     for (i = 0; i < accounts_len; i++) {
         if (strcmp(username, accounts[i].username) == 0 && strcmp(password, accounts[i].password) == 0) {
@@ -174,17 +182,29 @@ bool is_valid_account(const char* username, const char* password) {
 }
 
 // 判断是否为系统管理员
-bool is_admin(const char* username) {
-    return strcmp(username, "admin") == 0;
+bool is_admin(const char *username) {
+    int i = 0;
+    for (i = 0; i < accounts_len; i++) {
+        if (strcmp(username, accounts[i].username) == 0) {
+            return accounts[i].type == ADMIN;
+        }
+    }
+    return false;
 }
 
 // 判断是否为系统操作员
-bool is_operator(const char* username) {
-    return strcmp(username, "user01") == 0;
+bool is_operator(const char *username) {
+    int i = 0;
+    for (i = 0; i < accounts_len; i++) {
+        if (strcmp(username, accounts[i].username) == 0) {
+            return accounts[i].type == OPERATOR;
+        }
+    }
+    return false;
 }
 
 // 判断是否为首次登陆
-bool is_first_login(const char* username) {
+bool is_first_login(const char *username) {
     int i = 0;
     for (i = 0; i < accounts_len; i++) {
         if (strcmp(username, accounts[i].username) == 0) {
@@ -196,8 +216,8 @@ bool is_first_login(const char* username) {
 
 // 登录功能
 int login() {
-    char username[32] = { 0 };
-    char password[32] = { 0 };
+    char username[32] = {0};
+    char password[32] = {0};
 
     while (1) {
         printf("【登录】账号：");
@@ -222,13 +242,37 @@ int login() {
 
     if (is_admin(username)) {
         return ADMIN;
-    }
-    else if (is_operator(username)) {
+    } else if (is_operator(username)) {
         return OPERATOR;
-    }
-    else {
+    } else {
         return USER;
     }
+}
+
+bool has_account_exist(const char *username) {
+    int i = 0;
+    for (i = 0; i < accounts_len; i++) {
+        if (strcmp(username, accounts[i].username) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void add_operator() {
+    printf("【添加操作员】账号：");
+    scanf("%s", accounts[accounts_len].username);
+    if (has_account_exist(accounts[accounts_len].username)) {
+        printf("【错误】账号已存在\n\n\n");
+        return;
+    }
+    printf("【添加操作员】密码：");
+    scanf("%s", accounts[accounts_len].password);
+    accounts[accounts_len].password_changed = false;
+    accounts[accounts_len].type = OPERATOR;
+    accounts_len++;
+    update_account_info();
+    printf("\n\n");
 }
 
 // 系统管理员菜单
@@ -241,6 +285,8 @@ void admin_menu() {
         printf("2. 删除数据\n");
         printf("3. 修改数据\n");
         printf("4. 查询数据\n");
+        printf("5. 查看所有数据\n");
+        printf("6. 添加操作员\n");
         printf("0. 退出\n");
         printf("选择 << ");
         scanf("%d", &choice);
@@ -248,17 +294,17 @@ void admin_menu() {
 
         if (choice == 1) {
             add_student_info();
-        }
-        else if (choice == 2) {
+        } else if (choice == 2) {
             remove_student_info();
-        }
-        else if (choice == 3) {
+        } else if (choice == 3) {
             modify_student_info();
-        }
-        else if (choice == 4) {
+        } else if (choice == 4) {
             search_student_info();
-        }
-        else if (choice == 0) {
+        } else if (choice == 5) {
+            display_all_students_info();
+        } else if (choice == 6) {
+            add_operator();
+        } else if (choice == 0) {
             break;
         }
     }
@@ -272,6 +318,7 @@ void operator_menu() {
         printf("【系统操作员菜单】\n");
         printf("1. 增加数据\n");
         printf("2. 查询数据\n");
+        printf("3. 查看所有数据\n");
         printf("0. 退出\n");
         printf("选择 << ");
         scanf("%d", &choice);
@@ -279,11 +326,11 @@ void operator_menu() {
 
         if (choice == 1) {
             add_student_info();
-        }
-        else if (choice == 2) {
+        } else if (choice == 2) {
             search_student_info();
-        }
-        else if (choice == 0) {
+        } else if (choice == 2) {
+            display_all_students_info();
+        } else if (choice == 0) {
             break;
         }
     }
@@ -303,8 +350,7 @@ void student_menu() {
 
         if (choice == 1) {
             search_student_info();
-        }
-        else if (choice == 0) {
+        } else if (choice == 0) {
             break;
         }
     }
@@ -314,21 +360,21 @@ void student_menu() {
  *    学生基本信息管理    *
  *************************/
 
- // 从文件读取学生信息
+// 从文件读取学生信息
 void get_student_info() {
     if (!student_info_list) {
-        student_info_list = (student_info_t*)malloc(sizeof(student_info_t));
+        student_info_list = (student_info_t *)malloc(sizeof(student_info_t));
         student_info_list->next = NULL;
     }
 
-    FILE* fp = fopen("data2.txt", "r");
+    FILE *fp = fopen("data2.txt", "r");
     if (!fp) {
         fp = fopen("data2.txt", "w");
     }
 
-    char line[256] = { 0 };
+    char line[256] = {0};
     while (fgets(line, sizeof(line), fp)) {
-        student_info_t* student = (student_info_t*)malloc(sizeof(student_info_t));
+        student_info_t *student = (student_info_t *)malloc(sizeof(student_info_t));
         sscanf(line, "%s %s %s %s %lf %lf %lf %lf %lf %lf %lf %lf", student->id, student->name, student->school, student->type, &student->intro_courses[0], &student->intro_courses[1], &student->spec_courses[0], &student->spec_courses[1], &student->first_score, &student->second_score, &student->speaking_score, &student->overall_score);
         student->next = student_info_list->next;
         student_info_list->next = student;
@@ -338,11 +384,11 @@ void get_student_info() {
 }
 
 // 删除全部学生
-void free_student_list(student_info_t* list) {
-    student_info_t* temp = list;
+void free_student_list(student_info_t *list) {
+    student_info_t *temp = list;
 
     while (temp && temp->next) {
-        student_info_t* del = temp->next;
+        student_info_t *del = temp->next;
         temp->next = del->next;
         del->next = NULL;
         free(del);
@@ -355,7 +401,7 @@ void free_student_list(student_info_t* list) {
 }
 
 // 根据复试考号识别对应院校
-const char* get_school_by_id(char* id) {
+const char *get_school_by_id(char *id) {
     int school_info_len = sizeof(school_info) / sizeof(school_info[0]);
 
     // 长度是否为9位
@@ -364,8 +410,8 @@ const char* get_school_by_id(char* id) {
     }
 
     int year = 0;
-    char school_id[8] = { 0 };
-    char idx[4] = { 0 };
+    char school_id[8] = {0};
+    char idx[4] = {0};
     sscanf(id, "%4d%2s%3s", &year, school_id, idx);
 
     // 末尾3位数字是否为001-999
@@ -383,16 +429,16 @@ const char* get_school_by_id(char* id) {
     return NULL;
 }
 
-void update_student_info() {
-    FILE* fp = fopen("data1.txt", "w");
+void update_account_info() {
+    FILE *fp = fopen("data1.txt", "w");
     int i = 0;
     for (i = 0; i < accounts_len; i++) {
-        fprintf(fp, "%s %s\n", accounts[i].username, accounts[i].password);
+        fprintf(fp, "%s %s %d %d\n", accounts[i].username, accounts[i].password, accounts[i].password_changed, accounts[i].type);
     }
     fclose(fp);
 
     fp = fopen("data2.txt", "w");
-    student_info_t* temp = student_info_list;
+    student_info_t *temp = student_info_list;
     while (temp && temp->next) {
         temp = temp->next;
         fprintf(fp, "%s %s %s %s %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n", temp->id, temp->name, temp->school, temp->type, temp->intro_courses[0], temp->intro_courses[1], temp->spec_courses[0], temp->spec_courses[1], temp->first_score, temp->second_score, temp->speaking_score, temp->overall_score);
@@ -401,7 +447,7 @@ void update_student_info() {
 }
 
 // 判断是否为合法报考类别
-bool is_valid_type(const char* type) {
+bool is_valid_type(const char *type) {
     return strcmp(type, "学硕") == 0 || strcmp(type, "专硕") == 0 || strcmp(type, "非全日制") == 0;
 }
 
@@ -409,9 +455,9 @@ bool is_valid_type(const char* type) {
  *    学生数据增删改      *
  *************************/
 
- // 根据复试考号查询学生
-student_info_t* get_student_by_id(const char* id) {
-    student_info_t* temp = student_info_list;
+// 根据复试考号查询学生
+student_info_t *get_student_by_id(const char *id) {
+    student_info_t *temp = student_info_list;
     while (temp && temp->next) {
         temp = temp->next;
         if (strcmp(temp->id, id) == 0) {
@@ -423,13 +469,18 @@ student_info_t* get_student_by_id(const char* id) {
 
 // 添加学生信息
 void add_student_info() {
-    student_info_t* student = (student_info_t*)malloc(sizeof(student_info_t));
+    student_info_t *student = (student_info_t *)malloc(sizeof(student_info_t));
     student->next = NULL;
 
     while (1) {
         printf("【添加学生信息】复试考号：");
         scanf("%s", student->id);
-        const char* school = get_school_by_id(student->id);
+        student_info_t *s = get_student_by_id(student->id);
+        if (s) {
+            printf("【错误】复试考号已存在\n");
+            continue;
+        }
+        const char *school = get_school_by_id(student->id);
         if (school) {
             strcpy(student->school, school);
             break;
@@ -488,22 +539,25 @@ void add_student_info() {
 
     strcpy(accounts[accounts_len].username, student->id);
     strcpy(accounts[accounts_len].password, student->id);
+    accounts[accounts_len].password_changed = false;
+    accounts[accounts_len].type = USER;
+
     accounts_len++;
-    update_student_info();
+    update_account_info();
     printf("\n【添加成功】\n\n");
 }
 
 // 删除学生信息
 void remove_student_info() {
-    char id[10] = { 0 };
+    char id[10] = {0};
     printf("【删除学生信息】复试考号：");
     scanf("%s", id);
 
     bool found = false;
-    student_info_t* temp = student_info_list;
+    student_info_t *temp = student_info_list;
     while (temp && temp->next) {
         if (strcmp(temp->next->id, id) == 0) {
-            student_info_t* del = temp->next;
+            student_info_t *del = temp->next;
             temp->next = del->next;
             del->next = NULL;
             free(del);
@@ -517,7 +571,7 @@ void remove_student_info() {
                 }
             }
 
-            update_student_info();
+            update_account_info();
             printf("\n【删除成功】\n\n");
             return;
         }
@@ -531,10 +585,10 @@ void remove_student_info() {
 
 // 修改学生信息
 void modify_student_info() {
-    char id[10] = { 0 };
+    char id[10] = {0};
     printf("【修改学生信息】复试考号：");
     scanf("%s", id);
-    student_info_t* student = get_student_by_id(id);
+    student_info_t *student = get_student_by_id(id);
     if (!student) {
         printf("【错误】未找到该考生\n\n");
         return;
@@ -586,16 +640,16 @@ void modify_student_info() {
 
     student->overall_score = student->first_score * 0.6 + student->second_score * 0.3 + student->speaking_score * 0.1;
 
-    update_student_info();
+    update_account_info();
     printf("\n【修改成功】\n\n");
 }
 
 // 查询学生信息
 void search_student_info() {
-    char id[10] = { 0 };
+    char id[10] = {0};
     printf("【查询学生信息】复试考号：");
     scanf("%s", id);
-    student_info_t* student = get_student_by_id(id);
+    student_info_t *student = get_student_by_id(id);
     if (!student) {
         printf("【错误】未找到该考生\n\n");
         return;
@@ -620,19 +674,19 @@ void search_student_info() {
  *      学生数据统计      *
  *************************/
 
- // 按报考类别分类
+// 按报考类别分类
 void category_student_by_type() {
-    taught_student_list = (student_info_t*)malloc(sizeof(student_info_t));
-    spec_student_list = (student_info_t*)malloc(sizeof(student_info_t));
-    part_time_student_list = (student_info_t*)malloc(sizeof(student_info_t));
+    taught_student_list = (student_info_t *)malloc(sizeof(student_info_t));
+    spec_student_list = (student_info_t *)malloc(sizeof(student_info_t));
+    part_time_student_list = (student_info_t *)malloc(sizeof(student_info_t));
     taught_student_list->next = NULL;
     spec_student_list->next = NULL;
     part_time_student_list->next = NULL;
 
-    student_info_t* temp = student_info_list;
+    student_info_t *temp = student_info_list;
     while (temp && temp->next) {
         temp = temp->next;
-        student_info_t* student = (student_info_t*)malloc(sizeof(student_info_t));
+        student_info_t *student = (student_info_t *)malloc(sizeof(student_info_t));
         strcpy(student->id, temp->id);
         strcpy(student->name, temp->name);
         strcpy(student->school, temp->school);
@@ -649,12 +703,10 @@ void category_student_by_type() {
         if (strcmp(student->type, "学硕") == 0) {
             student->next = taught_student_list->next;
             taught_student_list->next = student;
-        }
-        else if (strcmp(student->type, "专硕") == 0) {
+        } else if (strcmp(student->type, "专硕") == 0) {
             student->next = spec_student_list->next;
             spec_student_list->next = student;
-        }
-        else {
+        } else {
             student->next = part_time_student_list->next;
             part_time_student_list->next = student;
         }
@@ -662,14 +714,24 @@ void category_student_by_type() {
 }
 
 // 根据综合成绩排序
-void sort_student_by_overall_score(student_info_t* list) {
-    student_info_t* temp1 = NULL;
-    student_info_t* temp2 = NULL;
+void sort_student_by_overall_score(student_info_t *list) {
+    student_info_t *temp1 = NULL;
+    student_info_t *temp2 = NULL;
+	//   char id[10];              // 复试考号
+    //char name[64];            // 姓名
+   // char school[64];          // 报考学院
+   // char type[32];            // 报考类别
+   // double intro_courses[2];  // 基础课成绩
+  //  double spec_courses[2];   // 专业课成绩
+   // double first_score;       // 初试总分
+   // double second_score;      //复试成绩
+  //  double speaking_score;    // 口语成绩
+  //  double overall_score;     // 综合成绩
 
-    for (temp1 = list->next; temp1; temp1 = temp1->next) {   //选择排序
+    for (temp1 = list->next; temp1; temp1 = temp1->next) {
         for (temp2 = temp1->next; temp2; temp2 = temp2->next) {
             if (temp1->overall_score < temp2->overall_score) {
-                char str_temp[128] = { 0 };
+                char str_temp[128] = {0};
                 double d_temp = 0;
 
                 strcpy(str_temp, temp1->id);
@@ -725,9 +787,9 @@ void sort_student_by_overall_score(student_info_t* list) {
 }
 
 // 导出信息到文件
-void export_student_info_to_file(const char* filename, student_info_t* list) {
-    FILE* fp = fopen(filename, "w");
-    student_info_t* temp = list;
+void export_student_info_to_file(const char *filename, student_info_t *list) {
+    FILE *fp = fopen(filename, "w");
+    student_info_t *temp = list;
     while (temp && temp->next) {
         temp = temp->next;
         fprintf(fp, "%s %s %s %s %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n", temp->id, temp->name, temp->school, temp->type, temp->intro_courses[0], temp->intro_courses[1], temp->spec_courses[0], temp->spec_courses[1], temp->first_score, temp->second_score, temp->speaking_score, temp->overall_score);
@@ -749,4 +811,27 @@ void get_student_statistic() {
     export_student_info_to_file("data3.txt", taught_student_list);
     export_student_info_to_file("data4.txt", spec_student_list);
     export_student_info_to_file("data5.txt", part_time_student_list);
+}
+
+void display_student_info(student_info_t *student) {
+    printf("***** 考生信息 *****\n");
+    printf("复试考号：%s\n", student->id);
+    printf("姓    名：%s\n", student->name);
+    printf("基础课 1：%.2f\n", student->intro_courses[0]);
+    printf("基础课 2：%.2f\n", student->intro_courses[1]);
+    printf("专业课 1：%.2f\n", student->spec_courses[0]);
+    printf("专业课 2：%.2f\n", student->spec_courses[1]);
+    printf("初试成绩：%.2f\n", student->first_score);
+    printf("复试成绩：%.2f\n", student->second_score);
+    printf("口语成绩：%.2f\n", student->speaking_score);
+    printf("综合成绩：%.2f\n", student->overall_score);
+}
+
+void display_all_students_info() {
+    student_info_t *temp = student_info_list;
+    while (temp && temp->next) {
+        temp = temp->next;
+        display_student_info(temp);
+        printf("\n\n");
+    }
 }

@@ -87,4 +87,7 @@ void readStudentInfoFromFile(const char* filename, struct Node* listHeadNode);
 //保存学生信息到文件
 void saveStudentInfoToFile(const char* filename, struct Node* listHeadNode);
 //保存排序后的学生信息到文件
-void saveSortStudentInfoToFile(const char* filename, struct Node* listHeadNode);
+void saveSortStudentInfoToFile(const char* filename, struct student* arr,int length);
+
+//解决bug，去除  .
+void removedot(char* arr, int length);

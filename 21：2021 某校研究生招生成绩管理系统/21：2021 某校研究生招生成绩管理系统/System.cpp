@@ -252,19 +252,21 @@ void saveStudentInfoToFile(const char* filename, struct Node* listHeadNode) {
 }
 
 //保存排序后的学生信息到文件
-void saveSortStudentInfoToFile(const char* filename, struct Node* listHeadNode) {
+void saveSortStudentInfoToFile(const char* filename, struct student* arr,int length) {
 	FILE* fp = fopen(filename, "w");
-	struct Node* pMove = listHeadNode->next;
 	int i = 0;
-	while (pMove) {
-		fprintf(fp, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t\n", pMove->data.stu_id, pMove->data.name, pMove->data.colleage, pMove->data.type, pMove->data.course1, pMove->data.course2, pMove->data.course3, pMove->data.course4, pMove->data.ptest, pMove->data.retest, pMove->data.olanguage, pMove->data.comprehensive);
-		i++;
-		if (i % 10 == 0) {   //每隔10条信息以一个空行隔开
+	for (i = 0; i < length; i++) {
+		fprintf(fp, "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t\n",arr[i].stu_id, arr[i].name, arr[i].colleage, arr[i].type, arr[i].course1, arr[i].course2, arr[i].course3, arr[i].course4, arr[i].ptest, arr[i].retest, arr[i].olanguage, arr[i].comprehensive);
+		if (i>0&& i % 10 == 0) {   //每隔10条信息以一个空行隔开
 			fprintf(fp, "\n");
 		}
-		pMove = pMove->next;
 	}
 	fclose(fp);
 	fp = NULL;
 }
-
+//解决bug，去除  .
+void removedot(char* arr, int length) {
+	if (arr[length - 1] == '.') {
+		arr[length - 1] = '\0';
+	}
+}

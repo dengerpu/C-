@@ -2,6 +2,8 @@
 #include"System.h"
 #include"utils.h"
 
+#define STUDENT_MAX 100
+
 //管理员操作
 void adminOption(struct Accounts* userList, struct Node* list);
 //系统操作员操作
