@@ -501,8 +501,8 @@ int cmp_by_comprehensive(const void* e1, const void* e2) {
 				if (a > b) { return -1; }
 				else if (a < b) { return 1; }
 				else if (a == b) {  //专业课1成绩相同，按专业课2排
-					a = atof(((struct student*)e1)->course3);
-					b = atof(((struct student*)e2)->course3);
+					a = atof(((struct student*)e1)->course4);
+					b = atof(((struct student*)e2)->course4);
 					if (a > b) { return -1; }
 					else if (a < b) { return 1; }
 					else {
@@ -556,10 +556,15 @@ int cmp_by_comprehensive(const void* e1, const void* e2) {
 //	free(list3);
 //}
 void sort(struct Node* list) {
-	struct student list1[STUDENT_MAX] ;//学硕表
-	struct student list2[STUDENT_MAX];//专硕表
-	struct student list3[STUDENT_MAX];//非全日制
-	int i = 0, j = 0, k = 0;
+	//struct student list1[STUDENT_MAX] ;//学硕表
+	//struct student list2[STUDENT_MAX];//专硕表
+	//struct student list3[STUDENT_MAX];//非全日制
+	struct students p1;
+	struct students p2;
+	struct students p3;
+	InitStudents(&p1);
+	InitStudents(&p2);
+	InitStudents(&p3);
 	struct Node* posNode = list->next;
 	if (posNode == NULL) {
 		printf("表为空\n");
@@ -568,34 +573,41 @@ void sort(struct Node* list) {
 	else {
 		while (posNode != NULL) {
 			if (strcmp(posNode->data.type, "学硕") == 0) {
-				//insertNodeNyHead(list1, posNode->data);
-				list1[i++] = posNode->data;
-				//printf("%s\n", posNode->data.comprehensive);
+				p1.data[p1.size] = posNode->data;
+				p1.size++;
+				CheckCapacity(&p1);
 			}
 			else if (strcmp(posNode->data.type, "专硕") == 0) {
-				//insertNodeNyHead(list2, posNode->data);
-				list2[j++] = posNode->data;
+				p2.data[p2.size] = posNode->data;
+				p2.size++;
+				CheckCapacity(&p2);
 			}
 			else if (strcmp(posNode->data.type, "非全日制") == 0) {
-				//insertNodeNyHead(list3, posNode->data);
-				list3[k++] = posNode->data;
+				p3.data[p3.size] = posNode->data;
+				p3.size++;
+				CheckCapacity(&p3);
 			}
 			posNode = posNode->next;
 		}
+		//queryAllStudentByArray(p1.data, p1.size);
 		//对这三个表进行排序
-		qsort(list1, i, sizeof(list1[0]), cmp_by_comprehensive);
-		qsort(list2, j, sizeof(list2[0]), cmp_by_comprehensive);
-		qsort(list3, k, sizeof(list3[0]), cmp_by_comprehensive);
-		//qsort(list2, getStudentLenth(list2), sizeof(list2), cmp_by_comprehensive);
-		//qsort(list3, getStudentLenth(list3), sizeof(list3), cmp_by_comprehensive);
+		qsort(p1.data, p1.size, sizeof(p1.data[0]), cmp_by_comprehensive);
+		qsort(p2.data, p2.size, sizeof(p2.data[0]), cmp_by_comprehensive);
+		qsort(p3.data, p3.size, sizeof(p3.data[0]), cmp_by_comprehensive);
+	
 
-		//queryAllStudentByArray(list1, i);
 		//保存到文件中去
-		saveSortStudentInfoToFile("data3.txt", list1,i);
-		saveSortStudentInfoToFile("data4.txt", list2,j);
-		saveSortStudentInfoToFile("data5.txt", list3,k);
+		saveSortStudentInfoToFile("data3.txt", p1.data,p1.size);
+		saveSortStudentInfoToFile("data4.txt", p2.data, p2.size);
+		saveSortStudentInfoToFile("data5.txt", p3.data, p3.size);
 		printf("排序成功\n");
 	}
+	free(p1.data);
+	p1.data = NULL;
+	free(p2.data);
+	p2.data = NULL;
+	free(p3.data);
+	p3.data = NULL;
 }
 //释放内存
 void destory(struct Accounts* userList, struct Node* list) {

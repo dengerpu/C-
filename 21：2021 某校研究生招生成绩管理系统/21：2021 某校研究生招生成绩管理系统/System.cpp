@@ -270,3 +270,29 @@ void removedot(char* arr, int length) {
 		arr[length - 1] = '\0';
 	}
 }
+
+//初始化students
+void InitStudents(struct students* stu) {
+	//分配DEFAULT_SZ个大小
+	stu->data = (struct student*)malloc(sizeof(struct student) * DEFAULT_SZ);
+	if (stu->data == NULL) {  //分配失败
+		printf("%s\n", strerror(errno));
+		return;
+	}
+	stu->size = 0;
+	stu->capicity = DEFAULT_SZ;
+}
+//检查容量是否够用
+void CheckCapacity(struct students* stu) {
+	if (stu->size == stu->capicity) {  //容量不够用，再次分配容量
+		struct student* p = (struct student*)realloc(stu->data, sizeof(struct student) * (DEFAULT_SZ+stu->capicity));
+		if (p != NULL) {
+			stu->data = p;
+			stu->capicity = stu->capicity + DEFAULT_SZ;
+		}
+		else {
+			printf("%s\n", strerror(errno));
+			return;
+		}
+	}
+}

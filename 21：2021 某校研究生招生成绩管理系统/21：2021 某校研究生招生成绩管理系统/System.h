@@ -2,6 +2,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+
+#define DEFAULT_SZ 10
+
 enum adminOption {
 	EXIT,
 	ADDUSER,
@@ -42,6 +45,12 @@ struct student {
 	char retest[10];		//复试成绩
 	char olanguage[6];  //口语成绩
 	char comprehensive[10];//综合成绩
+};
+
+struct students {
+	struct student *data;   //存储学生数据的数组
+	int size;				//数组长度
+	int capicity;			//当前容量
 };
 
 struct Node {
@@ -91,3 +100,8 @@ void saveSortStudentInfoToFile(const char* filename, struct student* arr,int len
 
 //解决bug，去除  .
 void removedot(char* arr, int length);
+
+//初始化students
+void InitStudents(struct students* stu);
+//检查容量是否够用
+void CheckCapacity(struct students* stu);
