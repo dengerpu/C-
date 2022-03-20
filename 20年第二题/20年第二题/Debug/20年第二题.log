@@ -1,0 +1,8 @@
+﻿  main.cpp
+  option.cpp
+F:\@c语言练习\20年第二题\20年第二题\option.cpp(181,99): warning C4244: “=”: 从“double”转换到“char”，可能丢失数据
+  utils.cpp
+F:\@c语言练习\20年第二题\20年第二题\utils.cpp(136,10): warning C4018: “>”: 有符号/无符号不匹配
+F:\@c语言练习\20年第二题\20年第二题\utils.cpp(142,11): warning C4018: “>”: 有符号/无符号不匹配
+  正在生成代码...
+  20年第二题.vcxproj -> F:\@c语言练习\20年第二题\Debug\20年第二题.exe

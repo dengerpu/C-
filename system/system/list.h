@@ -32,7 +32,7 @@ struct Node {
 //创建学生成绩链表
 struct Node* createList();
 //创建学生成绩结点
-struct Node* createNode(struct Node data);
+struct Node* createNode(struct student data);
 //学生成绩 头插法，插入节点
 void insertNodeNyHead(struct Node* listHeadNode, struct student data);
 //计算学生成绩链表长度
@@ -46,3 +46,5 @@ void saveStudentInfoToFile(const char* filename, struct Node* listHeadNode);
 void InitStudents(struct students* stu);
 //检查容量是否够用
 void CheckCapacity(struct students* stu);
+//解决bug，去除  .
+void removedot(char* arr, int length);

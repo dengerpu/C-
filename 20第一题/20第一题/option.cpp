@@ -21,7 +21,7 @@ int login() {
 		scanf("%s", user);
 		printMidInfo("ÃÜÂë£º");
 		scanf("%s", pwd);
-		if (strcmp(user, "admin") == 0 && strcmp(pwd, "admin")) {
+		if (strcmp(user, "admin") == 0 && strcmp(pwd, "admin")==0) {
 			printMidInfo("µÇÂ½³É¹¦\n");
 			return 1;
 		}

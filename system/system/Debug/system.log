@@ -1,7 +1,6 @@
 ﻿  main.cpp
   option.cpp
-  utils.cpp
-F:\@c语言练习\system\system\utils.cpp(136,10): warning C4018: “>”: 有符号/无符号不匹配
-F:\@c语言练习\system\system\utils.cpp(142,11): warning C4018: “>”: 有符号/无符号不匹配
+F:\@c语言练习\system\system\option.cpp(140,12): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+F:\@c语言练习\system\system\option.cpp(155,19): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
   正在生成代码...
   system.vcxproj -> F:\@c语言练习\system\Debug\system.exe

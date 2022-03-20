@@ -91,4 +91,10 @@ void CheckCapacity(struct students* stu) {
 		}
 	}
 }
+//½â¾öbug£¬È¥³ý  .
+void removedot(char* arr, int length) {
+	if (arr[length - 1] == '.') {
+		arr[length - 1] = '\0';
+	}
+}
 
