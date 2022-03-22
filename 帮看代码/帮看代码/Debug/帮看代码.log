@@ -1,0 +1,49 @@
+﻿  studentHMSys.c
+F:\@c语言练习\帮看代码\帮看代码\singleList.h(125,3): warning C4033: “printList”必须返回值
+F:\@c语言练习\帮看代码\帮看代码\singleList.h(200,13): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\singleList.h(200,9): warning C4024: “strcpy”: 形参和实参 1 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\singleList.h(202,19): warning C4047: “函数”:“const char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\singleList.h(202,15): warning C4024: “strcpy”: 形参和实参 2 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(171,39): warning C4244: “函数”: 从“float”转换到“int”，可能丢失数据
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(245,17): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(245,12): warning C4024: “getStuID”: 形参和实参 1 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(246,15): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(246,11): warning C4024: “getDate”: 形参和实参 1 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(248,36): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(248,31): warning C4024: “searchNodeByID”: 形参和实参 2 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(248,37): warning C4020: “searchNodeByID”: 实参太多
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(258,17): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(258,12): warning C4024: “getStuID”: 形参和实参 1 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(272,53): warning C4244: “函数”: 从“float”转换到“int”，可能丢失数据
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(309,17): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(309,12): warning C4024: “getStuID”: 形参和实参 1 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(310,15): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(310,11): warning C4024: “getDate”: 形参和实参 1 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(311,35): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(311,30): warning C4024: “searchNode”: 形参和实参 2 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(311,41): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(311,37): warning C4024: “searchNode”: 形参和实参 3 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(373,10): warning C4477: “scanf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“char **”
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(374,16): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(374,12): warning C4024: “getDate”: 形参和实参 1 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(375,50): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(375,46): warning C4024: “searchNodeByName”: 形参和实参 2 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(382,54): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(382,50): warning C4024: “searchNodeByName”: 形参和实参 2 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(383,66): warning C4047: “==”:“int”与“void *”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(399,18): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(399,13): warning C4024: “getStuID”: 形参和实参 1 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(400,16): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(400,12): warning C4024: “getDate”: 形参和实参 1 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(401,49): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(401,44): warning C4024: “searchNodeByID”: 形参和实参 2 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(408,53): warning C4047: “函数”:“char *”与“char *[20]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(408,48): warning C4024: “searchNodeByID”: 形参和实参 2 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(409,66): warning C4047: “==”:“int”与“void *”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(491,62): warning C4047: “==”:“int”与“void *”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(512,13): warning C4047: “函数”:“char *”与“char *[4]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(512,10): warning C4024: “strncpy”: 形参和实参 1 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(514,18): warning C4047: “函数”:“const char *”与“char *[4]”的间接级别不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(514,15): warning C4024: “atol”: 形参和实参 1 的类型不同
+F:\@c语言练习\帮看代码\帮看代码\studentHMSys.c(561,20): warning C4028: 形参 1 与声明不同
+  帮看代码.vcxproj -> F:\@c语言练习\帮看代码\Debug\帮看代码.exe
