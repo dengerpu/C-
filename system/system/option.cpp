@@ -21,6 +21,37 @@ void init() {
 	system(cmd);
 	//初始化链表，加载文件数据等操作
 }
+//登陆
+int login() {
+	char user[20] = { 0 };
+	char pwd[20] = { 0 };
+	int i = 3;
+	while (i--) {
+		printMenuHead(MENU_WIDTH);
+		printMenuMidInfo(MENU_WIDTH, "xxxx管理系统");
+		printMenuMidInfo(MENU_WIDTH, "");
+		printMenuTail(MENU_WIDTH);
+		printMidInfo("账号:");
+		scanf("%s", user);
+		printMidInfo("密码:");
+		scanf("%s", pwd);
+		if (strcmp(user, "admin") == 0 && strcmp(pwd, "admin") == 0) {
+			printMidInfo("登陆成功\n");
+			system("pause");
+			system("cls");
+			return 1;
+		}
+		if (i != 0) {
+			char buff[32];
+			sprintf(buff, "你还有%d次机会\n", i);
+			printMidInfo(buff);
+		}
+		system("pause");
+		system("cls");
+	}
+	return 0;
+
+}
 //菜单
 void menu() {
 	printMenuHead(MENU_WIDTH);
