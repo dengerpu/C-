@@ -14,8 +14,8 @@ int main() {
 		{
 			case 1:addStudent(list); break;
 			case 2:modifyStudent(list); break;
-			case 3:printf("模块3\n"); break;
-			case 4:printf("模块4\n"); break;
+			case 3:searchStudent(list); break;
+			case 4:abnormalStudent(list); break;
 			case 5:printf("模块5\n"); break;
 			case 6:printInfoByTable(list); break;
 			case 0:printf("退出系统\n"); destory(list); exit(0); break;

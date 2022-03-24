@@ -1,0 +1,95 @@
+﻿  pcre16_byte_order.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_chartables.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_compile.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_config.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_config.c(49,38): error C2065: “LINK_SIZE”: 未声明的标识符
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_config.c(49,38): error C2099: 初始值设定项不是常量
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_dfa_exec.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_exec.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_fullinfo.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_get.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_globals.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_jit_compile.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_maketables.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_newline.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_ord2utf16.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_refcount.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_string_utils.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_study.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_tables.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_ucd.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_utf16_utils.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_valid_utf16.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  正在生成代码...
+  正在编译...
+  pcre16_version.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre16_xclass.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_byte_order.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_chartables.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_compile.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_config.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_config.c(49,38): error C2065: “LINK_SIZE”: 未声明的标识符
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_config.c(49,38): error C2099: 初始值设定项不是常量
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_dfa_exec.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_exec.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_fullinfo.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_get.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_globals.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_jit_compile.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_maketables.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_newline.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_ord2utf8.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_refcount.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_string_utils.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_study.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_tables.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_ucd.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  正在生成代码...
+  正在编译...
+  pcre_valid_utf8.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_version.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  pcre_xclass.c
+F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(467,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+  正在生成代码...

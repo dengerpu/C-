@@ -29,8 +29,8 @@ void menu() {
 	const char* subMenus[] = {
 		"1.添加学生信息",
 		"2.修改学生信息",
-		"3.菜单3",
-		"4.菜单4",
+		"3. 查询和统计 ",
+		"4.异常学生信息",
 		"5.菜单5",
 		"6.菜单6",
 		"0.退出系统"
@@ -178,6 +178,113 @@ void modifyStudent(struct Node* list) {
 		saveStudentInfoToFile("data1.txt", list);
 	}
 }
+//查询和统计学生信息
+void searchStudent(struct Node* list) {
+	char sid[20] = { 0 };//学号
+	char deadLine[20] = { 0 };//截止日期
+	struct Node* newList;  //存储查询的学生信息链表
+	int flag = 1;
+	newList = createList();
+	struct Node* pMove = list->next;
+	if (pMove == NULL) {
+		printMidInfo("表为空\n");
+	}
+	else {
+		printf("请输入学生学号：");
+		scanf("%s", sid);
+		printf("请输入当前日期：");
+		scanf("%s", deadLine);
+		while (pMove) {
+			if (strcmp(pMove->data.stu_id, sid) == 0 && strcmp(pMove->data.date, deadLine) < 0) {
+				insertNodeNyHead(newList, pMove->data);
+				if (flag == 1) {
+					printf("截至 %d 年 %d 月 %d 日该生的健康管理信息为：\n", getYear(deadLine), getMonth(deadLine), getDay(deadLine));
+					printf("学号：%s\n", pMove->data.stu_id);
+					printf("姓名：%s\n", pMove->data.name);
+					printf("学院：%s\n", pMove->data.colleage);
+					printf("%s\t%s\t%s\t%s\t%s\t\n", "体温", "是否咳嗽", "健康状态", "时间", "日期");
+					flag = 0;
+				}
+				printf("%s\t%c\t%c\t%s\t%s\t\n", pMove->data.temperate, pMove->data.isCough, pMove->data.status, pMove->data.time, pMove->data.date);
+			}
+			pMove = pMove->next;
+		}
+		saveStudentInfoToFile("data2.txt", newList);
+	}
+	if (flag == 1) {
+		printf("不存在符合该学生的信息\n");
+	}
+	free(newList);
+}
+//异常学生信息统计
+void abnormalStudent(struct Node* list) {
+	struct Node* pMove = list->next;
+	struct Node* newList;//存储异常学生信息
+	newList = createList();
+	if (pMove == NULL) {
+		printf("表为空\n");
+	}
+	else {
+		while (pMove) {
+			if (pMove->data.status == '0') {
+				insertNodeNyHead(newList, pMove->data);
+			}
+			pMove = pMove->next;
+		}
+		saveStudentInfoToFile("data3.txt", newList);
+	}
+	printf("已经保存在data3.txt文件中\n");
+	free(newList);
+}
+//通过学号和日期排名
+int cmp_by_date(const void* e1, const void* e2) {
+	//return (strcmp(((struct student*)e1)->comprehensive ,((struct student*)e2)->comprehensive));
+	if (strcmp(((struct student*)e1)->stu_id, ((struct student*)e2)->stu_id)>0) {
+		return 1;
+	}
+	else if (strcmp(((struct student*)e1)->stu_id, ((struct student*)e2)->stu_id) < 0) {
+		return -1;
+	}
+	else if (strcmp(((struct student*)e1)->stu_id, ((struct student*)e2)->stu_id) == 0) {
+		if (strcmp(((struct student*)e1)->date, ((struct student*)e2)->date) > 0) {
+			return 1;
+		}
+		else if (strcmp(((struct student*)e1)->date, ((struct student*)e2)->date) < 0) {
+			return -1;
+		}
+		else {
+			return 0;
+		}
+	}
+}
+//健康预警
+void adviceStudent(struct Node* list) {
+	struct students p1;
+	InitStudents(&p1);
+	struct Node* newList;
+	newList = createList();
+	struct Node* pMove = list->next;
+	while (pMove) {
+		p1.data[p1.size++] = pMove->data;
+		CheckCapacity(&p1);
+		pMove = pMove->next;
+	}
+	//快速排序
+	qsort(p1.data, p1.size, sizeof(p1.data[0]), cmp_by_date);
+	for (int i = 0; i < p1.size; i++) {
+		if (i < p1.size - 2) {
+			if (p1.data[i].status == '0' && p1.data[i + 1].status == '0' && p1.data[i + 2].status == '0') { //连续三天异常
+				if (strcmp(p1.data[i].stu_id, p1.data[i + 1].stu_id) == 0 && strcmp(p1.data[i + 2].stu_id, p1.data[i + 1].stu_id) == 0) {
+					insertNodeNyHead(newList, pMove->data);
+				}
+			}
+		}
+	}
+	saveStudentInfoToFile("data4.txt", newList);
+	free(newList);
+	free(p1.data);
+	p1.data = NULL;
+}
 //标题栏数据
 char head[][COL_LEN_MAX] = { "学号","姓名","学院","体温","是否咳嗽","健康状态","时间","日期"};
 //以表格形式打印数据
@@ -230,19 +337,10 @@ void printStudentArr(struct student* arr, int length) {
 		printf("%-11s  %-10s%-18s  %-10s  %-10s %-10s %-10s %-10s %-10s %-10s %-16s %-10s %-10s\n", arr[i].stu_id, arr[i].name, arr[i].sid, arr[i].college, arr[i].type, arr[i].major, arr[i].route, arr[i].traffic, arr[i].isClose, arr[i].temperate, arr[i].history, arr[i].isCough, arr[i].time);
 	}*/
 }
-//通过综合成绩排名
-int cmp_by_comprehensive(const void* e1, const void* e2) {
-	//return (strcmp(((struct student*)e1)->comprehensive ,((struct student*)e2)->comprehensive));
-	return 1;
-}
+
 //排序
-void sort() {
-	struct students p1;
-	InitStudents(&p1);
-	//快速排序
-	qsort(p1.data, p1.size, sizeof(p1.data[0]), cmp_by_comprehensive);
-	free(p1.data);
-	p1.data = NULL;
+void sort(struct Node* list) {
+	
 }
 //释放内存
 void destory(struct Node* list) {
