@@ -37,7 +37,7 @@ F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error 
   pcre16_ucd.c
 F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
   pcre16_utf16_utils.c
-F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
+F:\@c语言练习\验证邮箱\验证邮箱\pcre16_utf16_utils.c : fatal error C1041: 无法打开程序数据库“F:\@c语言练习\验证邮箱\验证邮箱\Debug\vc142.pdb”；如果要将多个 CL.EXE 写入同一个 .PDB 文件，请使用 /FS
   pcre16_valid_utf16.c
 F:\@c语言练习\验证邮箱\验证邮箱\pcre_internal.h(503,1): fatal error C1189: #error:  LINK_SIZE must be either 2, 3, or 4
   正在生成代码...
